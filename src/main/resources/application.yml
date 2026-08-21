@@ -16,7 +16,23 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  mail:
+    host: localhost
+    port: 1025
+    username: dummy
+    password: password
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
 
 jwt:
   secret: aVerySecretKeyThatMustBeAtLeast32BytesLongForHmacSha256!
   expirationMs: 86400000 # 24 ore
+
+management:
+  health:
+    mail:
+      enabled: false

@@ -10,6 +10,8 @@ import com.insurehub.agency_core.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
+import com.insurehub.agency_core.repository.InsuranceProductRepository;
+import com.insurehub.agency_core.entity.InsuranceProduct;
 import com.insurehub.agency_core.repository.AgencyInfoRepository;
 import com.insurehub.agency_core.entity.AgencyInfo;
 
@@ -20,6 +22,7 @@ public class DataInitializer implements CommandLineRunner {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AgencyInfoRepository agencyInfoRepository;
+    private final InsuranceProductRepository insuranceProductRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -32,6 +35,21 @@ public class DataInitializer implements CommandLineRunner {
             admin.setRole(Role.ADMIN);
             userRepository.save(admin);
             System.out.println("Utente ADMIN di default creato: admin@agency.com / admin123");
+        }
+
+        if (insuranceProductRepository.count() == 0) {
+            InsuranceProduct auto = new InsuranceProduct();
+            auto.setName("Polizza Auto Base");
+            auto.setDescription("Copertura base RCA");
+            auto.setActive(true);
+            insuranceProductRepository.save(auto);
+            
+            InsuranceProduct vita = new InsuranceProduct();
+            vita.setName("Polizza Vita");
+            vita.setDescription("Protezione famiglia");
+            vita.setActive(true);
+            insuranceProductRepository.save(vita);
+            System.out.println("Prodotti assicurativi di default creati (ID 1: Auto, ID 2: Vita).");
         }
 
         if (agencyInfoRepository.count() == 0) {

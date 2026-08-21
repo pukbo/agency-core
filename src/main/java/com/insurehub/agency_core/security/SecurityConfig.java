@@ -33,6 +33,9 @@ public class SecurityConfig {
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/agency-info/**").permitAll() // Permetti la lettura pubblica
                         .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/v1/quotes").permitAll() // Permetti la creazione di quote pubblica
+                        .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/v1/quotes/*/attachments").permitAll() // Permetti l'upload pubblico per i preventivi
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll() // Swagger
+                        .requestMatchers("/actuator/**").permitAll() // Actuator (in produzione andrebbe protetto!)
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

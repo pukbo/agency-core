@@ -27,5 +27,17 @@ public class QuoteController {
         QuoteRequestDTO savedQuote = quoteService.saveQuoteRequest(quoteRequestDTO);
         return new ResponseEntity<>(savedQuote, HttpStatus.CREATED);
     }
-
+    @PostMapping("/{id}/attachments")
+    public ResponseEntity<?> uploadAttachment(
+            @org.springframework.web.bind.annotation.PathVariable Long id,
+            @org.springframework.web.bind.annotation.RequestParam("file") org.springframework.web.multipart.MultipartFile file) {
+        
+        try {
+            String fileName = quoteService.addAttachmentToQuote(id, file);
+            return ResponseEntity.ok("File " + fileName + " caricato con successo per il preventivo " + id);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Errore durante l'upload del file: " + e.getMessage());
+        }
+    }
 }
