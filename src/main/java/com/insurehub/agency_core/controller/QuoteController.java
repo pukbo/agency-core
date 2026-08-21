@@ -1,10 +1,13 @@
 package com.insurehub.agency_core.controller;
 
-import com.insurehub.agency_core.entity.QuoteRequest;
+import com.insurehub.agency_core.dto.QuoteRequestDTO;
 import com.insurehub.agency_core.service.QuoteService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/quotes")
@@ -17,8 +20,18 @@ public class QuoteController {
     }
 
     @PostMapping
-    public ResponseEntity<QuoteRequest> createQuoteRequest(@RequestBody QuoteRequest quoteRequest) {
-        QuoteRequest savedQuote = quoteService.saveQuoteRequest(quoteRequest);
+    public ResponseEntity<QuoteRequestDTO> createQuoteRequest(@Valid @RequestBody QuoteRequestDTO quoteRequestDTO) {
+        QuoteRequestDTO savedQuote = quoteService.saveQuoteRequest(quoteRequestDTO);
         return new ResponseEntity<>(savedQuote, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<QuoteRequestDTO>> getAllQuoteRequests() {
+        return ResponseEntity.ok(quoteService.getAllQuoteRequests());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<QuoteRequestDTO> getQuoteRequestById(@PathVariable Long id) {
+        return ResponseEntity.ok(quoteService.getQuoteRequestById(id));
     }
 }

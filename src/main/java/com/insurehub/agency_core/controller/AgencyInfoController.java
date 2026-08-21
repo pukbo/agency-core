@@ -1,7 +1,9 @@
 package com.insurehub.agency_core.controller;
 
-import com.insurehub.agency_core.entity.AgencyInfo;
+import com.insurehub.agency_core.dto.AgencyInfoDTO;
 import com.insurehub.agency_core.service.AgencyInfoService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +19,19 @@ public class AgencyInfoController {
         this.agencyInfoService = agencyInfoService;
     }
 
+    @PostMapping
+    public ResponseEntity<AgencyInfoDTO> createAgencyInfo(@Valid @RequestBody AgencyInfoDTO agencyInfoDTO) {
+        AgencyInfoDTO savedAgencyInfo = agencyInfoService.saveAgencyInfo(agencyInfoDTO);
+        return new ResponseEntity<>(savedAgencyInfo, HttpStatus.CREATED);
+    }
+
     @GetMapping
-    public ResponseEntity<List<AgencyInfo>> getAgencyInfo() {
-        List<AgencyInfo> agencyInfos = agencyInfoService.getAllAgencyInfos();
-        return ResponseEntity.ok(agencyInfos);
+    public ResponseEntity<List<AgencyInfoDTO>> getAllAgencyInfo() {
+        return ResponseEntity.ok(agencyInfoService.getAllAgencyInfos());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AgencyInfoDTO> getAgencyInfoById(@PathVariable Long id) {
+        return ResponseEntity.ok(agencyInfoService.getAgencyInfoById(id));
     }
 }

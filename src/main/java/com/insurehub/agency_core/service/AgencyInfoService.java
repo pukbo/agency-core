@@ -1,30 +1,41 @@
 package com.insurehub.agency_core.service;
 
+import com.insurehub.agency_core.dto.AgencyInfoDTO;
 import com.insurehub.agency_core.entity.AgencyInfo;
+import com.insurehub.agency_core.exception.ResourceNotFoundException;
+import com.insurehub.agency_core.mapper.AgencyInfoMapper;
 import com.insurehub.agency_core.repository.AgencyInfoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AgencyInfoService {
 
     private final AgencyInfoRepository agencyInfoRepository;
+    private final AgencyInfoMapper agencyInfoMapper;
 
-    public AgencyInfoService(AgencyInfoRepository agencyInfoRepository) {
+    public AgencyInfoService(AgencyInfoRepository agencyInfoRepository, AgencyInfoMapper agencyInfoMapper) {
         this.agencyInfoRepository = agencyInfoRepository;
+        this.agencyInfoMapper = agencyInfoMapper;
     }
 
-    public AgencyInfo saveAgencyInfo(AgencyInfo agencyInfo) {
-        return agencyInfoRepository.save(agencyInfo);
+    public AgencyInfoDTO saveAgencyInfo(AgencyInfoDTO agencyInfoDTO) {
+        AgencyInfo agencyInfo = agencyInfoMapper.toEntity(agencyInfoDTO);
+        AgencyInfo savedAgencyInfo = agencyInfoRepository.save(agencyInfo);
+        return agencyInfoMapper.toDto(savedAgencyInfo);
     }
 
-    public List<AgencyInfo> getAllAgencyInfos() {
-        return agencyInfoRepository.findAll();
+    public List<AgencyInfoDTO> getAllAgencyInfos() {
+        return agencyInfoRepository.findAll().stream()
+                .map(agencyInfoMapper::toDto)
+                .collect(Collectors.toList());
     }
 
-    public Optional<AgencyInfo> getAgencyInfoById(Long id) {
-        return agencyInfoRepository.findById(id);
+    public AgencyInfoDTO getAgencyInfoById(Long id) {
+        AgencyInfo agencyInfo = agencyInfoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("AgencyInfo not found with id: " + id));
+        return agencyInfoMapper.toDto(agencyInfo);
     }
 }
