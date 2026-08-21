@@ -1,0 +1,10 @@
+package com.insurehub.agency_core.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class AuthResponse {
+    private String token;
+}

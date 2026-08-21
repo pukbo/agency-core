@@ -28,8 +28,14 @@ public class QuoteRequestDTO {
     @Pattern(regexp = "^\\+?[0-9. ()-]{7,25}$", message = "Il formato del numero di telefono non è valido")
     private String phone;
 
-    @NotBlank(message = "Il tipo di polizza è obbligatorio")
+    private Long productId;
+
+    // TODO: Deprecare e rimuovere dopo la transizione a productId
     private String policyType;
+
+    private String status;
+
+    private Long assignedToId;
 
     private Map<String, Object> quoteData;
 

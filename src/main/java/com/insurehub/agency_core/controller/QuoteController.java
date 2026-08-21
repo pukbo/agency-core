@@ -25,13 +25,4 @@ public class QuoteController {
         return new ResponseEntity<>(savedQuote, HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<List<QuoteRequestDTO>> getAllQuoteRequests() {
-        return ResponseEntity.ok(quoteService.getAllQuoteRequests());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<QuoteRequestDTO> getQuoteRequestById(@PathVariable Long id) {
-        return ResponseEntity.ok(quoteService.getQuoteRequestById(id));
-    }
 }

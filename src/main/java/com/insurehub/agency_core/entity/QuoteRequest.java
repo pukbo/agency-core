@@ -31,8 +31,21 @@ public class QuoteRequest {
     @Column(nullable = false)
     private String phone;
 
-    @Column(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private InsuranceProduct product;
+
+    // Manteniamo il campo stringa come fallback (opzionale) finchè non migriamo del tutto
+    @Column
     private String policyType;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private QuoteStatus status = QuoteStatus.NEW;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "assigned_to_id")
+    private User assignedTo;
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "json")

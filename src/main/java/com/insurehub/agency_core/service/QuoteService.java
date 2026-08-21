@@ -27,15 +27,28 @@ public class QuoteService {
         return quoteRequestMapper.toDto(savedQuote);
     }
 
-    public List<QuoteRequestDTO> getAllQuoteRequests() {
-        return quoteRequestRepository.findAll().stream()
-                .map(quoteRequestMapper::toDto)
-                .collect(Collectors.toList());
+    public org.springframework.data.domain.Page<QuoteRequestDTO> getQuoteRequests(String status, org.springframework.data.domain.Pageable pageable) {
+        if (status != null && !status.isEmpty()) {
+            return quoteRequestRepository.findByStatus(com.insurehub.agency_core.entity.QuoteStatus.valueOf(status.toUpperCase()), pageable)
+                    .map(quoteRequestMapper::toDto);
+        }
+        return quoteRequestRepository.findAll(pageable)
+                .map(quoteRequestMapper::toDto);
     }
 
     public QuoteRequestDTO getQuoteRequestById(Long id) {
         QuoteRequest quoteRequest = quoteRequestRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Richiesta di preventivo non trovata con id: " + id));
         return quoteRequestMapper.toDto(quoteRequest);
+    }
+    
+    public QuoteRequestDTO assignQuote(Long id, com.insurehub.agency_core.entity.User agent) {
+        QuoteRequest quoteRequest = quoteRequestRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Richiesta di preventivo non trovata con id: " + id));
+        
+        quoteRequest.setAssignedTo(agent);
+        quoteRequest.setStatus(com.insurehub.agency_core.entity.QuoteStatus.IN_PROGRESS);
+        QuoteRequest saved = quoteRequestRepository.save(quoteRequest);
+        return quoteRequestMapper.toDto(saved);
     }
 }
