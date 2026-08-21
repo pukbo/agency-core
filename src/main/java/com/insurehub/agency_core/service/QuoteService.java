@@ -35,7 +35,7 @@ public class QuoteService {
 
     public QuoteRequestDTO getQuoteRequestById(Long id) {
         QuoteRequest quoteRequest = quoteRequestRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("QuoteRequest not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Richiesta di preventivo non trovata con id: " + id));
         return quoteRequestMapper.toDto(quoteRequest);
     }
 }

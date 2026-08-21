@@ -35,7 +35,7 @@ public class AgencyInfoService {
 
     public AgencyInfoDTO getAgencyInfoById(Long id) {
         AgencyInfo agencyInfo = agencyInfoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("AgencyInfo not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Informazioni agenzia non trovate con id: " + id));
         return agencyInfoMapper.toDto(agencyInfo);
     }
 }

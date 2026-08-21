@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
                 LocalDateTime.now(),
                 HttpStatus.BAD_REQUEST.value(),
                 HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                "Validation failed for one or more fields",
+                "Validazione fallita per uno o più campi",
                 request.getRequestURI(),
                 errors
         );

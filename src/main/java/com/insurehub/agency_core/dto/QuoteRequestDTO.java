@@ -14,21 +14,21 @@ public class QuoteRequestDTO {
 
     private Long id;
 
-    @NotBlank(message = "First name is mandatory")
+    @NotBlank(message = "Il nome è obbligatorio")
     private String firstName;
 
-    @NotBlank(message = "Last name is mandatory")
+    @NotBlank(message = "Il cognome è obbligatorio")
     private String lastName;
 
-    @NotBlank(message = "Email is mandatory")
-    @Email(message = "Email should be valid")
+    @NotBlank(message = "L'email è obbligatoria")
+    @Email(message = "L'email non è valida")
     private String email;
 
-    @NotBlank(message = "Phone number is mandatory")
-    @Pattern(regexp = "^\\+?[0-9. ()-]{7,25}$", message = "Phone number is invalid")
+    @NotBlank(message = "Il numero di telefono è obbligatorio")
+    @Pattern(regexp = "^\\+?[0-9. ()-]{7,25}$", message = "Il formato del numero di telefono non è valido")
     private String phone;
 
-    @NotBlank(message = "Policy type is mandatory")
+    @NotBlank(message = "Il tipo di polizza è obbligatorio")
     private String policyType;
 
     private Map<String, Object> quoteData;
