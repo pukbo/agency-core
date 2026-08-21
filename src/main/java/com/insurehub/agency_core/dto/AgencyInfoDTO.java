@@ -12,15 +12,16 @@ public class AgencyInfoDTO {
     private Long id;
 
     @NotBlank(message = "Il nome dell'agenzia è obbligatorio")
-    private String name;
+    private String companyName;
 
-    @NotBlank(message = "L'indirizzo è obbligatorio")
-    private String address;
-
-    @NotBlank(message = "Il numero di telefono è obbligatorio")
-    private String phone;
+    private String primaryColor;
+    private String secondaryColor;
+    private String logoUrl;
 
     @NotBlank(message = "L'email di contatto è obbligatoria")
     @Email(message = "L'email di contatto non è valida")
     private String contactEmail;
+
+    private String phone;
+    private String vatNumber;
 }

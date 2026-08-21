@@ -31,8 +31,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers("/api/agency-info/**").permitAll() // Permetti la lettura pubblica
-                        .requestMatchers("/api/quotes").permitAll() // Permetti la creazione di quote pubblica
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/agency-info/**").permitAll() // Permetti la lettura pubblica
+                        .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/v1/quotes").permitAll() // Permetti la creazione di quote pubblica
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

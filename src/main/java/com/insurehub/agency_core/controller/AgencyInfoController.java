@@ -26,12 +26,16 @@ public class AgencyInfoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AgencyInfoDTO>> getAllAgencyInfo() {
-        return ResponseEntity.ok(agencyInfoService.getAllAgencyInfos());
+    public ResponseEntity<AgencyInfoDTO> getAgencyInfo() {
+        // Poiché è Single-Tenant, assumiamo che l'agenzia abbia sempre ID 1 o ne estraiamo il primo record
+        return ResponseEntity.ok(agencyInfoService.getAgencyInfoById(1L));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<AgencyInfoDTO> getAgencyInfoById(@PathVariable Long id) {
-        return ResponseEntity.ok(agencyInfoService.getAgencyInfoById(id));
+    @PutMapping
+    public ResponseEntity<AgencyInfoDTO> updateAgencyInfo(@Valid @RequestBody AgencyInfoDTO agencyInfoDTO) {
+        // Poiché è Single-Tenant, forziamo l'aggiornamento del record 1
+        agencyInfoDTO.setId(1L);
+        AgencyInfoDTO updatedAgencyInfo = agencyInfoService.saveAgencyInfo(agencyInfoDTO);
+        return ResponseEntity.ok(updatedAgencyInfo);
     }
 }

@@ -15,14 +15,15 @@ public class AgencyInfo {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String companyName;
 
-    @Column(nullable = false)
-    private String address;
-
-    @Column(nullable = false)
-    private String phone;
+    private String primaryColor;
+    private String secondaryColor;
+    private String logoUrl;
 
     @Column(nullable = false)
     private String contactEmail;
+
+    private String phone;
+    private String vatNumber;
 }
