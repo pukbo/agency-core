@@ -1,6 +1,6 @@
 package com.insurehub.agency_core.dto;
 
-import com.insurehub.agency_core.entity.Role;
+import com.insurehub.agency_core.enums.Role;
 import lombok.Data;
 
 @Data

@@ -1,13 +1,5 @@
 package com.insurehub.agency_core.controller;
 
-import com.insurehub.agency_core.dto.AuthRequest;
-import com.insurehub.agency_core.dto.AuthResponse;
-import com.insurehub.agency_core.dto.RegisterRequest;
-import com.insurehub.agency_core.entity.Role;
-import com.insurehub.agency_core.entity.User;
-import com.insurehub.agency_core.repository.UserRepository;
-import com.insurehub.agency_core.security.JwtUtil;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,6 +10,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.insurehub.agency_core.dto.AuthRequest;
+import com.insurehub.agency_core.dto.AuthResponse;
+import com.insurehub.agency_core.dto.RegisterRequest;
+import com.insurehub.agency_core.entity.User;
+import com.insurehub.agency_core.enums.Role;
+import com.insurehub.agency_core.repository.UserRepository;
+import com.insurehub.agency_core.security.JwtUtil;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/auth")

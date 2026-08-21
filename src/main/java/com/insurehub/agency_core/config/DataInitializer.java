@@ -1,12 +1,14 @@
 package com.insurehub.agency_core.config;
 
-import com.insurehub.agency_core.entity.Role;
-import com.insurehub.agency_core.entity.User;
-import com.insurehub.agency_core.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import com.insurehub.agency_core.entity.User;
+import com.insurehub.agency_core.enums.Role;
+import com.insurehub.agency_core.repository.UserRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor

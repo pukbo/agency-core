@@ -1,14 +1,12 @@
 package com.insurehub.agency_core.service;
 
+import org.springframework.stereotype.Service;
+
 import com.insurehub.agency_core.dto.QuoteRequestDTO;
 import com.insurehub.agency_core.entity.QuoteRequest;
 import com.insurehub.agency_core.exception.ResourceNotFoundException;
 import com.insurehub.agency_core.mapper.QuoteRequestMapper;
 import com.insurehub.agency_core.repository.QuoteRequestRepository;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class QuoteService {
@@ -29,7 +27,7 @@ public class QuoteService {
 
     public org.springframework.data.domain.Page<QuoteRequestDTO> getQuoteRequests(String status, org.springframework.data.domain.Pageable pageable) {
         if (status != null && !status.isEmpty()) {
-            return quoteRequestRepository.findByStatus(com.insurehub.agency_core.entity.QuoteStatus.valueOf(status.toUpperCase()), pageable)
+            return quoteRequestRepository.findByStatus(com.insurehub.agency_core.enums.QuoteStatus.valueOf(status.toUpperCase()), pageable)
                     .map(quoteRequestMapper::toDto);
         }
         return quoteRequestRepository.findAll(pageable)
@@ -47,7 +45,7 @@ public class QuoteService {
                 .orElseThrow(() -> new ResourceNotFoundException("Richiesta di preventivo non trovata con id: " + id));
         
         quoteRequest.setAssignedTo(agent);
-        quoteRequest.setStatus(com.insurehub.agency_core.entity.QuoteStatus.IN_PROGRESS);
+        quoteRequest.setStatus(com.insurehub.agency_core.enums.QuoteStatus.IN_PROGRESS);
         QuoteRequest saved = quoteRequestRepository.save(quoteRequest);
         return quoteRequestMapper.toDto(saved);
     }
